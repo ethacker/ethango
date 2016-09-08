@@ -1,6 +1,6 @@
 runtime: go
 api_version: go1
-default_expiration: "4d 5h"
+default_expiration: "5h"
 
 handlers:
 - url: /.*

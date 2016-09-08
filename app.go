@@ -7,9 +7,6 @@ import (
 	"log"
 	"os"
 )
-
-//var templates = template.Must(template.ParseGlob("templates/*"))
-
 var tmplt = make(map[string]*template.Template)
 
 func init() {

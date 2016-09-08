@@ -2,6 +2,10 @@ runtime: go
 api_version: go1
 default_expiration: "5h"
 
+- url: /favicon\.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon\.ico
+
 handlers:
 - url: /.*
   script: _go_app

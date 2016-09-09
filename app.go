@@ -46,7 +46,6 @@ func templateHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, http.StatusText(500), 500)
 		}
 
-
 	} else {
 
 		tmplt["index"].ExecuteTemplate(w,"layout", nil)

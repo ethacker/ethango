@@ -2,30 +2,43 @@ html,body{
     margin:0;
     padding:0;
     display:block;
+    font-family: 'Lato', sans-serif;
+    background-color:#F0F0F0;
 }
 
 .nav-header {
     width:100%;
     background-color: #7BAFD4;
+    height:3em;
+    line-height: 3em;
 }
+
 .navigation-list-item {
-    display:inline-block;
     width:10%;
     text-align:center;
-    cursor:pointer;
+    height:inherit;
+    display:inline-block;
 }
+
 .navigation-list-item:hover,:focus{
     background-color:steelblue;
 }
+
 .navigation-link {
     text-decoration: none;
     color: #FFFFFF;
     font-family: sans-serif;
     width:100%;
     height:100%;
+    display:inline-block;
 }
 
 .navigation-list {
     margin:0;
     padding:0;
+    height:100%;
+}
+
+.main-content {
+    padding:2em;
 }

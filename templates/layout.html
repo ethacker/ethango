@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <script type="application/javascript" src="/js/vue.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/styles/styles.css">
     <script type="application/javascript" src="/js/app.js"></script>
     <!-- Google Analytics -->
@@ -22,16 +23,18 @@
     <!-- End Google Analytics -->
 </head>
 <body>
-<div class="nav-header">
-    <ul class="navigation-list">
-        <li class="navigation-list-item"><a href="about" class="navigation-link">about</a></li>
-        <li class="navigation-list-item"><a href="blog" class="navigation-link">blog</a></li>
-        <li class="navigation-list-item"><a href="projects" class="navigation-link">projects</a></li>
-        <li class="navigation-list-item"><a href="contact" class="navigation-link">contact</a></li>
-        <li class="navigation-list-item"><a href="otherstuff" class="navigation-link">otherStuff</a></li>
-    </ul>
-</div>
-{{template "body"}}
+    <div class="nav-header">
+        <ul class="navigation-list">
+            <li class="navigation-list-item"><a href="about" class="navigation-link">about</a></li>
+            <li class="navigation-list-item"><a href="blog" class="navigation-link">blog</a></li>
+            <li class="navigation-list-item"><a href="projects" class="navigation-link">projects</a></li>
+            <li class="navigation-list-item"><a href="contact" class="navigation-link">contact</a></li>
+            <li class="navigation-list-item"><a href="otherstuff" class="navigation-link">otherStuff</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        {{template "body"}}
+    </div>
 </body>
 </html>
 {{end}}

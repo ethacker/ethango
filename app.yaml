@@ -12,9 +12,14 @@ handlers:
   static_files: styles/styles.css
   upload: styles/styles.css
 
+- url: /img/ethan.png
+  static_files: img/ethan.png
+  upload: img/ethan.png
+
 - url: /js/(.+\.js)
   static_files: js/\1
   upload: .+\.js
 
 - url: /.*
   script: _go_app
+

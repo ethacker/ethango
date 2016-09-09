@@ -13,6 +13,10 @@ func init() {
 	http.HandleFunc("/", templateHandler)
 	tmplt["index"] = template.Must(template.ParseFiles("templates/index.html","templates/layout.html"))
 	tmplt["/about"] = template.Must(template.ParseFiles("templates/about.html","templates/layout.html"))
+	tmplt["/blog"] = template.Must(template.ParseFiles("templates/blog.html","templates/layout.html"))
+	tmplt["/contact"] = template.Must(template.ParseFiles("templates/contact.html","templates/layout.html"))
+	tmplt["/projects"] = template.Must(template.ParseFiles("templates/projects.html","templates/layout.html"))
+	tmplt["/otherstuff"] = template.Must(template.ParseFiles("templates/otherstuff.html","templates/layout.html"))
 }
 
 func templateHandler(w http.ResponseWriter, r *http.Request) {

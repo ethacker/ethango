@@ -37,6 +37,11 @@ html,body{
     font-size:15px;
     display:block;
 }
+.sm-navigation-link {
+    width:28%;
+    display:block;
+    height:2em;
+}
 
 .navigation-list {
     margin:0;

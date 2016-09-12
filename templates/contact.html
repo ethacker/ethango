@@ -2,4 +2,12 @@
 
 {{define "body"}}
 <h1>Contact Coming Soon!</h1>
+<form action="/contact" title="contact" method="post">
+    <input title="firstname" name="firstname" type="text">
+    <input title="lastname" name="lastname" type="text">
+    <input title="phonenumber" name="phonenumber" type="tel">
+    <input title="emailaddress" name="emailaddress" type="email">
+    <input title="message" name="message" type="text">
+    <input type="submit">
+</form>
 {{end}}

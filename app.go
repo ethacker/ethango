@@ -1,4 +1,4 @@
-package hello
+package main
 
 import (
 	"net/http"
@@ -6,10 +6,21 @@ import (
 	"path"
 	"log"
 	"os"
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/datastore"
 )
 var tmplt = make(map[string]*template.Template)
 
+type Contact struct {
+	firstname    string
+	lastname     string
+	emailaddress string
+	phonenumber  string
+	message      string
+}
+
 func init() {
+	http.HandleFunc("/contact",contactHandler)
 	http.HandleFunc("/", templateHandler)
 	tmplt["index"] = template.Must(template.ParseFiles("templates/index.html","templates/layout.html"))
 	tmplt["/about"] = template.Must(template.ParseFiles("templates/about.html","templates/layout.html"))
@@ -17,6 +28,27 @@ func init() {
 	tmplt["/contact"] = template.Must(template.ParseFiles("templates/contact.html","templates/layout.html"))
 	tmplt["/projects"] = template.Must(template.ParseFiles("templates/projects.html","templates/layout.html"))
 	tmplt["/otherstuff"] = template.Must(template.ParseFiles("templates/otherstuff.html","templates/layout.html"))
+}
+
+func contactHandler(w http.ResponseWriter, r *http.Request) {
+	log.Print(appengine.InstanceID())
+	if r.Method=="GET" {
+		tmplt["/contact"].ExecuteTemplate(w,"layout", nil)
+	}
+	if r.Method=="POST" {
+		ctx := appengine.NewContext(r)
+		r.ParseForm()
+		c:= Contact{
+			firstname: r.FormValue("firstname"),
+			lastname: r.FormValue("lastname"),
+			emailaddress: r.FormValue("emailaddress"),
+			phonenumber: r.FormValue("phonenumer"),
+			message: r.FormValue("message"),
+		}
+		datastore.Put(ctx,datastore.NewIncompleteKey(ctx,"contact",nil),&c)
+		log.Print("email " + c.emailaddress + " firstname " + c.firstname + " lastname " + c.lastname)
+		log.Print(datastore.Done)
+	}
 }
 
 func templateHandler(w http.ResponseWriter, r *http.Request) {

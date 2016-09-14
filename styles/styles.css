@@ -71,4 +71,13 @@ html,body{
         height:28px;
         line-height: 3em;
     }
+
+    .contact-form-div {
+        width:80%;
+        display:block;
+    }
+
+    .contact-input {
+        width:100%;
+    }
 }

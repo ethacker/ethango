@@ -1,13 +1,25 @@
 {{define "title"}}contact{{end}}
 
 {{define "body"}}
-<h1>Contact Coming Soon!</h1>
-<form action="/contact" title="contact" method="post">
-    <input title="firstname" name="firstname" type="text">
-    <input title="lastname" name="lastname" type="text">
-    <input title="phonenumber" name="phonenumber" type="tel">
-    <input title="emailaddress" name="emailaddress" type="email">
-    <input title="message" name="message" type="text">
-    <input type="submit">
-</form>
+<h1>Contact: </h1>
+<div class="contact-form-div">
+    <form action="/contact" title="contact" method="post">
+        <label for="firstname">First Name: </label>
+        <input class="contact-input" id="firstname" title="firstname" name="firstname" type="text">
+
+        <label for="lastname">Last Name: </label>
+        <input class="contact-input" id="lastname" title="lastname" name="lastname" type="text">
+
+        <label for="phonenumber">Phone: </label>
+        <input class="contact-input" id="phonenumber" title="phonenumber" name="phonenumber" type="tel">
+
+        <label for="emailaddress">Email: </label>
+        <input class="contact-input" id="emailaddress" title="emailaddress" name="emailaddress" type="email">
+
+        <label for="message">Message: </label>
+        <textarea class="contact-textarea" id="message" title="message" name="message"></textarea>
+
+        <input type="submit">
+    </form>
+</div>
 {{end}}

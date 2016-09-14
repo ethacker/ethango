@@ -6,18 +6,23 @@ import (
 	"path"
 	"log"
 	"os"
-	"google.golang.org/appengine"
 	"google.golang.org/appengine/datastore"
+	"google.golang.org/appengine"
+	"time"
+	"golang.org/x/net/context"
 )
 var tmplt = make(map[string]*template.Template)
 
 type Contact struct {
-	firstname    string
-	lastname     string
-	emailaddress string
-	phonenumber  string
-	message      string
+	Firstname    string
+	Lastname     string
+	Emailaddress string
+	Phonenumber  string
+	Message      string
+	Date	     time.Time
 }
+
+type test struct {number int}
 
 func init() {
 	http.HandleFunc("/contact",contactHandler)
@@ -31,24 +36,40 @@ func init() {
 }
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
-	log.Print(appengine.InstanceID())
 	if r.Method=="GET" {
 		tmplt["/contact"].ExecuteTemplate(w,"layout", nil)
 	}
 	if r.Method=="POST" {
-		ctx := appengine.NewContext(r)
 		r.ParseForm()
-		c:= Contact{
-			firstname: r.FormValue("firstname"),
-			lastname: r.FormValue("lastname"),
-			emailaddress: r.FormValue("emailaddress"),
-			phonenumber: r.FormValue("phonenumer"),
-			message: r.FormValue("message"),
-		}
-		datastore.Put(ctx,datastore.NewIncompleteKey(ctx,"contact",nil),&c)
-		log.Print("email " + c.emailaddress + " firstname " + c.firstname + " lastname " + c.lastname)
-		log.Print(datastore.Done)
+
+		saveContact(w,r)
+		http.Redirect(w, r, "/", http.StatusFound)
 	}
+}
+
+func contactKey(c context.Context) *datastore.Key {
+	return datastore.NewKey(c, "Contact", "default_contacts", 0, nil)
+}
+
+func saveContact(w http.ResponseWriter, r *http.Request) {
+	c := appengine.NewContext(r)
+	ctc := &Contact{
+		Firstname: r.FormValue("firstname"),
+		Lastname: r.FormValue("lastname"),
+		Emailaddress: r.FormValue("emailaddress"),
+		Phonenumber: r.FormValue("phonenumber"),
+		Message: r.FormValue("message"),
+		Date: time.Now(),
+	}
+	log.Print(ctc.Firstname)
+
+	key := datastore.NewIncompleteKey(c, "Message", contactKey(c))
+	_, err := datastore.Put(c, key, ctc)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func templateHandler(w http.ResponseWriter, r *http.Request) {

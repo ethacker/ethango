@@ -7,7 +7,8 @@ html,body{
 }
 
 .main-content {
-    padding: 1.5em 5em;
+    padding-left: 5em;
+    padding-right: 5em;
 }
 
 .nav-header {
@@ -26,7 +27,7 @@ html,body{
         float:left;
     }
 
-    .navigation-list-item:hover, .navigation-list-item:focus{
+    .navigation-list-item:hover,.navigation-list-item:focus,.navigation-list-item:active{
         background-color:steelblue;
     }
 
@@ -100,5 +101,10 @@ html,body{
 
     .contact-image {
         float:right;
+    }
+
+    #welcome-back-banner {
+        margin-top: 1em;
+        text-align: center;
     }
 }

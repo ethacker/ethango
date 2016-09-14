@@ -3,7 +3,9 @@
 <html lang="en">
 <head>
     <title>{{template "title"}}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link rel="icon" href="http://ethangosite.appspot.com/favicon.ico">
+    <script type="application/javascript" src="/js/cookies.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
@@ -22,6 +24,11 @@
         ga('send', 'pageview');
     </script>
     <!-- End Google Analytics -->
+    <script type="application/javascript">
+        $(document).ready(function() {
+           Ethan.app.initPage();
+        });
+    </script>
 </head>
 <body>
     <div class="nav-header">
@@ -35,6 +42,9 @@
             <li class="social-media-list-item"><a href="https://www.facebook.com/ethan.thacker" class="sm-navigation-link"><img class="sm-image" src="/img/FB-f-Logo__blue_29.png"></a></li>
             <li class="social-media-list-item"><a href="https://github.com/ethacker" class="sm-navigation-link"><img class="sm-image" src="/img/GitHub-Mark-32px.png"></a></li>
         </ul>
+    </div>
+    <div id="welcome-back">
+
     </div>
     <div class="main-content">
         {{template "body"}}

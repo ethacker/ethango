@@ -105,6 +105,11 @@ html,body{
     .contact-image {
         float:right;
         margin-top:1.65em;
+        border-radius:1em;
+    }
+
+    .projects-image {
+        border-radius:1em;
     }
 
     #welcome-back-banner {

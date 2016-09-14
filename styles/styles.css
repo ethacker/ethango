@@ -7,7 +7,7 @@ html,body{
 }
 
 .main-content {
-    padding:2em;
+    padding: 1.5em 5em;
 }
 
 .nav-header {
@@ -73,8 +73,8 @@ html,body{
     }
 
     .contact-form-div {
-        width:30%;
-        display:block;
+        width:35%;
+        display:inline-block;
     }
 
     .contact-input {
@@ -92,5 +92,13 @@ html,body{
 
     .fa {
         margin-right:1em;
+    }
+    .contact-page-content {
+        display:inline-block;
+        width: 90%;
+    }
+
+    .contact-image {
+        float:right;
     }
 }

@@ -107,4 +107,12 @@ html,body{
         margin-top: 1em;
         text-align: center;
     }
+
+    .stack-list-item {
+        width: 10%;
+    }
+
+    .stack-list-image {
+        width: 50%;
+    }
 }

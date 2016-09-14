@@ -1,25 +1,25 @@
 {{define "title"}}contact{{end}}
 
 {{define "body"}}
-<h1>Contact: </h1>
+<h1>Contact Me</h1>
 <div class="contact-form-div">
     <form action="/contact" title="contact" method="post">
         <label for="firstname">First Name: </label>
-        <input class="contact-input" id="firstname" title="firstname" name="firstname" type="text">
+        <input required maxlength="24" class="contact-input" id="firstname" title="firstname" name="firstname" type="text">
 
         <label for="lastname">Last Name: </label>
-        <input class="contact-input" id="lastname" title="lastname" name="lastname" type="text">
+        <input required maxlength="24" class="contact-input" id="lastname" title="lastname" name="lastname" type="text">
 
         <label for="phonenumber">Phone: </label>
-        <input class="contact-input" id="phonenumber" title="phonenumber" name="phonenumber" type="tel">
+        <input required maxlength="13" class="contact-input" id="phonenumber" title="phonenumber" name="phonenumber" type="tel">
 
         <label for="emailaddress">Email: </label>
-        <input class="contact-input" id="emailaddress" title="emailaddress" name="emailaddress" type="email">
+        <input required maxlength="64" class="contact-input" id="emailaddress" title="emailaddress" name="emailaddress" type="email">
 
         <label for="message">Message: </label>
-        <textarea class="contact-textarea" id="message" title="message" name="message"></textarea>
+        <textarea class="contact-textarea" rows="10" id="message" title="message" name="message"></textarea>
 
-        <input type="submit">
+        <button class="pure-button contact-submit-button" type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i>Submit</button>
     </form>
 </div>
 {{end}}

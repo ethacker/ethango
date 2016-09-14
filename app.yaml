@@ -8,9 +8,9 @@ handlers:
   static_files: favicon.ico
   upload: favicon.ico
 
-- url: /styles/styles.css
-  static_files: styles/styles.css
-  upload: styles/styles.css
+- url: /styles/(.+\.css)
+  static_files: styles/\1
+  upload: .+\.css
 
 - url: /img/(.+\.png)
   static_files: img/\1

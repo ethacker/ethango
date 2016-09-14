@@ -3,7 +3,7 @@ html,body{
     padding:0;
     display:block;
     font-family: 'Lato', sans-serif;
-    background-color:#F0F0F0;
+    background-color: rgb(255, 254, 254);
 }
 
 .main-content {
@@ -26,7 +26,7 @@ html,body{
         float:left;
     }
 
-    .navigation-list-item:hover,:focus{
+    .navigation-list-item:hover, .navigation-list-item:focus{
         background-color:steelblue;
     }
 
@@ -73,11 +73,24 @@ html,body{
     }
 
     .contact-form-div {
-        width:80%;
+        width:30%;
         display:block;
     }
 
     .contact-input {
         width:100%;
+        margin-bottom:1em;
+        font-size:large;
+    }
+    .contact-textarea {
+        width: 100%;
+    }
+
+    .contact-submit-button {
+        margin-top: 1em;
+    }
+
+    .fa {
+        margin-right:1em;
     }
 }

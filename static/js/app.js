@@ -4,14 +4,36 @@ var Ethan = Ethan || {};
 var welcomeback;
 
 Ethan.app = {
+    menuToggleVar:variable = false,
+
     initPage: function () {
-      window.addEventListener("resize",Ethan.app.navbarSizing);
+        Ethan.app.navbarSizing();
+        window.addEventListener("resize",Ethan.app.navbarSizing);
+        $(".nav-menu-responsive-icon").click(Ethan.app.menuToggle);
+        $(".main-content").click(Ethan.app.menuClose);
     },
     navbarSizing: function() {
         if($(window).width()<769){
             $(".navigation-list").hide();
+            Ethan.app.menuToggleVar = false;
+            $(".nav-menu-responsive-icon").show();
+            $(".social-media-list-item").hide();
         } else {
             $(".navigation-list").show();
+            $(".nav-menu-responsive-icon").hide();
+        }
+    },
+    menuClose: function() {
+        $(".navigation-list").hide();
+        Ethan.app.menuToggleVar = false;
+    },
+    menuToggle: function() {
+        if(Ethan.app.menuToggleVar == false){
+            $(".navigation-list").show();
+            Ethan.app.menuToggleVar = true;
+        } else {
+            $(".navigation-list").hide();
+            Ethan.app.menuToggleVar = false;
         }
     },
     setCookie: function () {

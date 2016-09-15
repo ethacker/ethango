@@ -41,7 +41,6 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if r.Method=="POST" {
 		r.ParseForm()
-
 		saveContact(w,r)
 		http.Redirect(w, r, "/", http.StatusFound)
 	}

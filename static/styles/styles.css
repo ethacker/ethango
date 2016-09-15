@@ -11,7 +11,7 @@ html,body{
 }
 
 .img-rounder {
-
+    border-radius: 1em;
 }
 
 .nav-header {
@@ -21,8 +21,26 @@ html,body{
     line-height: 3em;
 }
 
-@media only screen and (min-width: 768px){
+.navigation-list {
+    margin:0;
+    padding:0;
+    height:100%;
+    width:100%;
+    list-style: none;
+}
 
+@media only screen and (max-width: 768px){
+    #welcome-back-banner {
+        margin-top: 1em;
+        text-align: center;
+    }
+
+    .main-content {
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 769px){
     .navigation-list-item {
         width:10%;
         text-align:center;
@@ -50,11 +68,7 @@ html,body{
     }
 
     .navigation-list {
-        margin:0;
-        padding:0;
-        height:100%;
-        width:100%;
-        list-style: none;
+
     }
 
     .social-media-icon-list {
@@ -105,11 +119,9 @@ html,body{
     .contact-image {
         float:right;
         margin-top:1.65em;
-        border-radius:1em;
     }
 
     .projects-image {
-        border-radius:1em;
     }
 
     #welcome-back-banner {

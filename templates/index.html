@@ -1,10 +1,12 @@
 {{define "title"}}home{{end}}
-
-{{define "body"}}
+{{define "extra-head"}}
 <script type="application/javascript">
     $(document).ready(function() {
-        Ethan.app.initPage();
+        Ethan.app.setCookie();
     });
 </script>
+{{end}}
+{{define "body"}}
+<div id="welcome-back"></div>
 <h1>Coming Soon!</h1>
 {{end}}

@@ -5,6 +5,16 @@ var welcomeback;
 
 Ethan.app = {
     initPage: function () {
+      window.addEventListener("resize",Ethan.app.navbarSizing);
+    },
+    navbarSizing: function() {
+        if($(window).width()<769){
+            $(".navigation-list").hide();
+        } else {
+            $(".navigation-list").show();
+        }
+    },
+    setCookie: function () {
         if(Cookies.get("returning")=="true"){
             welcomeback = document.createElement("p");
             welcomeback.setAttribute("id","welcome-back-banner");
@@ -15,5 +25,4 @@ Ethan.app = {
             Cookies.set("returning","true",{ expires: Infinity });
         }
     }
-
 };

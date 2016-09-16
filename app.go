@@ -10,6 +10,8 @@ import (
 	"google.golang.org/appengine"
 	"time"
 	"golang.org/x/net/context"
+	"google.golang.org/appengine/user"
+	"fmt"
 )
 var tmplt = make(map[string]*template.Template)
 
@@ -22,9 +24,17 @@ type Contact struct {
 	Date	     time.Time
 }
 
+type Usr struct {
+	Email      string
+	AuthDomain string
+	Admin      bool
+	Date 	   time.Time
+}
+
 type test struct {number int}
 
 func init() {
+	http.HandleFunc("/exclusive",exclusiveHandler)
 	http.HandleFunc("/contact",contactHandler)
 	http.HandleFunc("/", templateHandler)
 	tmplt["index"] = template.Must(template.ParseFiles("templates/index.html","templates/layout.html"))
@@ -33,6 +43,43 @@ func init() {
 	tmplt["/contact"] = template.Must(template.ParseFiles("templates/contact.html","templates/layout.html"))
 	tmplt["/projects"] = template.Must(template.ParseFiles("templates/projects.html","templates/layout.html"))
 	tmplt["/otherstuff"] = template.Must(template.ParseFiles("templates/otherstuff.html","templates/layout.html"))
+	tmplt["/exclusive"] = template.Must(template.ParseFiles("templates/exclusive.html","templates/layout.html"))
+}
+
+
+func userKey(c context.Context) *datastore.Key {
+	return datastore.NewKey(c,"User","registered_users",0,nil)
+}
+
+func exclusiveHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "text/html; charset=utf-8")
+	ctx := appengine.NewContext(r)
+	u := user.Current(ctx)
+	if (u==nil) {
+		url, _ := user.LoginURL(ctx, "/exclusive")
+		fmt.Fprintf(w, `<a href="%s">Sign in or register</a>`, url)
+		return
+	} else {
+		usr := Usr{
+			Email: u.Email,
+			AuthDomain: u.AuthDomain,
+			Admin: u.Admin,
+			Date: time.Now(),
+		}
+		saveUser(w,r,usr)
+		tmplt["/exclusive"].ExecuteTemplate(w,"layout",nil)
+	}
+}
+
+func saveUser(w http.ResponseWriter, r *http.Request,u Usr) {
+	c := appengine.NewContext(r)
+
+	key := datastore.NewIncompleteKey(c,"User",userKey(c))
+	_, err:= datastore.Put(c,key,&u)
+	if err !=nil {
+		http.Error(w,err.Error(),http.StatusInternalServerError)
+		return
+	}
 }
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {

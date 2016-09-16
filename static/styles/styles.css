@@ -28,6 +28,9 @@ html,body{
         margin-top: 1em;
         text-align: center;
     }
+    .social-media-list-item {
+        display:none;
+    }
     body{
         -webkit-touch-callout: none;
         -webkit-user-select: none;

@@ -37,6 +37,7 @@ func init() {
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method=="GET" {
+		w.Header().Add("Content-type","text/html")
 		tmplt["/contact"].ExecuteTemplate(w,"layout", nil)
 	}
 	if r.Method=="POST" {
@@ -73,6 +74,7 @@ func saveContact(w http.ResponseWriter, r *http.Request) {
 
 func templateHandler(w http.ResponseWriter, r *http.Request) {
 	log.Print(r.URL.Path)
+	w.Header().Add("Content-type","text/html")
 	if r.URL.Path != "/"{
 		fp := path.Join("templates", r.URL.Path + ".html")
 

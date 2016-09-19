@@ -1,6 +1,6 @@
 {{define "title"}}crimewatch{{end}}
 {{define "extra-head"}}
-<script type="application/javascript" src="https://storage.googleapis.com/ethangosite.appspot.com/static/js/dpd.js"></script>
+<script type="application/javascript" src="/static/js/dpd.js"></script>
 <script>
     $(document).ready(function(){
         Ethan.dpd.initPage();
@@ -14,11 +14,11 @@
             <tr>
                 <th>Location</th>
                 <th>Nature</th>
-                <th>Priority</th>
+                <th class="priorityRow">Priority</th>
                 <th>Time</th>
-                <th>Division</th>
+                <th class="divisionRow">Division</th>
                 <th>Status</th>
-                <th>Unit Number</th>
+                <th class="unitRow">Unit Number</th>
             </tr>
         </thead>
         <tbody class="crimes-table-body" id="crimes-table-body">

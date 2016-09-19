@@ -28,6 +28,15 @@ html,body{
         margin-top: 1em;
         text-align: center;
     }
+    .priorityRow{
+        display:none;
+    }
+    .divisionRow {
+        display:none;
+    }
+    .unitRow{
+        display:none;
+    }
     .social-media-list-item {
         display:none;
     }

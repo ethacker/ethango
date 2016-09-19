@@ -1,28 +1,35 @@
 {{define "title"}}crimewatch{{end}}
 {{define "extra-head"}}
-<script type="application/javascript" src="/static/js/dpd.js"></script>
+<script type="application/javascript" src="https://storage.googleapis.com/ethangosite.appspot.com/static/js/dpd.js"></script>
 <script>
     $(document).ready(function(){
         Ethan.dpd.initPage();
     });
 </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzfdrF3ekdtBR0CFTFvz2F1Qg7BimziTY&callback=Ethan.dpd.loadMap"></script>
 {{end}}
 {{define "body"}}
 <div class="dpd-info-container">
     <table class="pure-table crimes-table" id="crimes-table">
+        <h3 class="crimes-header">Current Active Calls for Dallas PD</h3>
+        <h6>Info sourced from <a href="www.dallasopendata.com">dallasopendata.com</a></h6>
         <thead class="crimes-table-header">
             <tr>
                 <th>Location</th>
                 <th>Nature</th>
-                <th>Priority</th>
+                <th class="priorityRow">Priority</th>
                 <th>Time</th>
-                <th>Division</th>
+                <th class="divisionRow">Division</th>
                 <th>Status</th>
-                <th>Unit Number</th>
+                <th class="unitRow">Unit Number</th>
             </tr>
         </thead>
         <tbody class="crimes-table-body" id="crimes-table-body">
         </tbody>
     </table>
+    <div id="googleMap">
+
+    </div>
+    <h6>Hopefully going to use this data to do some interesting stuff in the future</h6>
 </div>
 {{end}}

@@ -6,6 +6,7 @@
         Ethan.dpd.initPage();
     });
 </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzfdrF3ekdtBR0CFTFvz2F1Qg7BimziTY&callback=Ethan.dpd.loadMap"></script>
 {{end}}
 {{define "body"}}
 <div class="dpd-info-container">
@@ -26,5 +27,9 @@
         <tbody class="crimes-table-body" id="crimes-table-body">
         </tbody>
     </table>
+    <div id="googleMap">
+
+    </div>
+    <h6>Hopefully going to use this data to do some interesting stuff in the future</h6>
 </div>
 {{end}}

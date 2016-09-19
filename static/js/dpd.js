@@ -2,6 +2,8 @@ Ethan = Ethan || {};
 
 
 Ethan.dpd = {
+    geoCoder: variable,
+    map: variable,
     initPage:function(){
         $("#crimes-table").hide();
         $.get({
@@ -15,6 +17,7 @@ Ethan.dpd = {
                     locRow.setAttribute("class","locationRow");
                     locRow.innerHTML = crime["location"];
 
+                    Ethan.dpd.geoCode(crime["location"]);
                     natureRow = row.insertCell(1);
                     natureRow.setAttribute("class","natureRow");
                     natureRow.innerHTML = crime["nature_of_call"];
@@ -39,11 +42,34 @@ Ethan.dpd = {
                     unitRow.setAttribute("class","unitRow");
                     unitRow.innerHTML = crime["unit_number"];
                 });
+                Ethan.dpd.loadMap();
                 $("#crimes-table").css("display","block");
             },
             error:function (errorCode) {
                 console.log(errorCode);
             }
         });
+    },
+    geoCode: function(address){
+        Ethan.dpd.geocoder.geocode( { 'address': address}, function(results, status) {
+            if (status == 'OK') {
+                console.log(results);
+                var marker = new google.maps.Marker({
+                    map: Ethan.dpd.map,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    },
+
+    loadMap: function(){
+        Ethan.dpd.map = new google.maps.Map(document.getElementById('googleMap'), {
+                center: {lat: 32.779, lng: -96.798},
+                zoom: 10
+            });
+        Ethan.dpd.geocoder = new google.maps.Geocoder();
+
     }
 };

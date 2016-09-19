@@ -221,4 +221,9 @@ html,body{
     .crimes-table-body {
         width:100%;
     }
+    #googleMap{
+        width:auto;
+        height:40em;
+        margin-top:3em;
+    }
 }

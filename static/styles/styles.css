@@ -199,4 +199,17 @@ html,body{
         width: 25%;
         display:inline-block !important;
     }
+
+    .crimes-table {
+        height: 40em;
+        overflow: scroll;
+        width:90%;
+        margin-left:5%;
+    }
+    .crimes-table-header {
+        width:100%;
+    }
+    .crimes-table-body {
+        width:100%;
+    }
 }

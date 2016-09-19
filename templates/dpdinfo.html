@@ -9,24 +9,19 @@
 {{end}}
 {{define "body"}}
 <div class="dpd-info-container">
-    <table class="pure-table">
-        <thead>
+    <table class="pure-table crimes-table" id="crimes-table">
+        <thead class="crimes-table-header">
             <tr>
-                <th>Beat</th>
-                <th>Block</th>
                 <th>Location</th>
                 <th>Nature</th>
                 <th>Priority</th>
-                <th>Date</th>
+                <th>Time</th>
                 <th>Division</th>
-                <th>Incident Number</th>
-                <th>Reporting Area</th>
                 <th>Status</th>
                 <th>Unit Number</th>
             </tr>
         </thead>
-        <tbody>
-
+        <tbody class="crimes-table-body" id="crimes-table-body">
         </tbody>
     </table>
 </div>

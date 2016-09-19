@@ -1,4 +1,4 @@
-package main
+package ethango
 
 import (
 	"net/http"
@@ -12,6 +12,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/user"
 	"fmt"
+	"golang.org/x/net/html"
 )
 var tmplt = make(map[string]*template.Template)
 
@@ -34,6 +35,7 @@ type Usr struct {
 type test struct {number int}
 
 func init() {
+	http.HandleFunc("/dpdinfo/crimes",getPoliceData)
 	http.HandleFunc("/exclusive",exclusiveHandler)
 	http.HandleFunc("/contact",contactHandler)
 	http.HandleFunc("/", templateHandler)
@@ -44,6 +46,8 @@ func init() {
 	tmplt["/projects"] = template.Must(template.ParseFiles("templates/projects.html","templates/layout.html"))
 	tmplt["/otherstuff"] = template.Must(template.ParseFiles("templates/otherstuff.html","templates/layout.html"))
 	tmplt["/exclusive"] = template.Must(template.ParseFiles("templates/exclusive.html","templates/layout.html"))
+	tmplt["/login"] = template.Must(template.ParseFiles("templates/login.html","templates/layout.html"))
+	tmplt["/dpdinfo"] = template.Must(template.ParseFiles("templates/dpdinfo.html","templates/layout.html"))
 }
 
 
@@ -56,9 +60,11 @@ func exclusiveHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 	u := user.Current(ctx)
 	if (u==nil) {
-		url, _ := user.LoginURL(ctx, "/exclusive")
-		fmt.Fprintf(w, `<a href="%s">Sign in or register</a>`, url)
-		return
+		url,err :=user.LoginURL(ctx, "/exclusive")
+		if(err!=nil){
+			http.Error(w,err.Error(),http.StatusTeapot)
+		}
+		fmt.Fprintf(w, `<a href="%s">Sign in to access this Exclusive Itemz</a>`, url)
 	} else {
 		usr := Usr{
 			Email: u.Email,
@@ -67,6 +73,7 @@ func exclusiveHandler(w http.ResponseWriter, r *http.Request) {
 			Date: time.Now(),
 		}
 		saveUser(w,r,usr)
+		getPoliceData(w,r)
 		tmplt["/exclusive"].ExecuteTemplate(w,"layout",nil)
 	}
 }
@@ -101,11 +108,11 @@ func contactKey(c context.Context) *datastore.Key {
 func saveContact(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 	ctc := &Contact{
-		Firstname: r.FormValue("firstname"),
-		Lastname: r.FormValue("lastname"),
-		Emailaddress: r.FormValue("emailaddress"),
-		Phonenumber: r.FormValue("phonenumber"),
-		Message: r.FormValue("message"),
+		Firstname: html.EscapeString(r.FormValue("firstname")),
+		Lastname: html.EscapeString(r.FormValue("lastname")),
+		Emailaddress: html.EscapeString(r.FormValue("emailaddress")),
+		Phonenumber: html.EscapeString(r.FormValue("phonenumber")),
+		Message: html.EscapeString(r.FormValue("message")),
 		Date: time.Now(),
 	}
 	log.Print(ctc.Firstname)
@@ -122,6 +129,7 @@ func saveContact(w http.ResponseWriter, r *http.Request) {
 func templateHandler(w http.ResponseWriter, r *http.Request) {
 	log.Print(r.URL.Path)
 	w.Header().Add("Content-type","text/html")
+	user.LoginURL(appengine.NewContext(r),"/exclusive")
 	if r.URL.Path != "/"{
 		fp := path.Join("templates", r.URL.Path + ".html")
 

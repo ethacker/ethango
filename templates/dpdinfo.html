@@ -1,0 +1,33 @@
+{{define "title"}}crimewatch{{end}}
+{{define "extra-head"}}
+<script type="application/javascript" src="/static/js/dpd.js"></script>
+<script>
+    $(document).ready(function(){
+        Ethan.dpd.initPage();
+    });
+</script>
+{{end}}
+{{define "body"}}
+<div class="dpd-info-container">
+    <table class="pure-table">
+        <thead>
+            <tr>
+                <th>Beat</th>
+                <th>Block</th>
+                <th>Location</th>
+                <th>Nature</th>
+                <th>Priority</th>
+                <th>Date</th>
+                <th>Division</th>
+                <th>Incident Number</th>
+                <th>Reporting Area</th>
+                <th>Status</th>
+                <th>Unit Number</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+{{end}}

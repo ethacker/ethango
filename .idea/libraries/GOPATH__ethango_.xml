@@ -7,6 +7,7 @@
       <root url="file://$PROJECT_DIR$/../src/google.golang.org" />
       <root url="file://$PROJECT_DIR$/../src/golang.org" />
       <root url="file://$PROJECT_DIR$/../src/github.com" />
+      <root url="file://$PROJECT_DIR$/../src/googlemaps.github.io" />
     </CLASSES>
     <SOURCES>
       <root url="file://$PROJECT_DIR$/../src/apis" />
@@ -15,6 +16,7 @@
       <root url="file://$PROJECT_DIR$/../src/google.golang.org" />
       <root url="file://$PROJECT_DIR$/../src/golang.org" />
       <root url="file://$PROJECT_DIR$/../src/github.com" />
+      <root url="file://$PROJECT_DIR$/../src/googlemaps.github.io" />
     </SOURCES>
     <excluded>
       <root url="file://$PROJECT_DIR$" />

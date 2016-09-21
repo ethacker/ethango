@@ -7,6 +7,7 @@ import ("net/http"
 	"google.golang.org/appengine/urlfetch"
 	"encoding/json"
 	"io/ioutil"
+	"googlemaps.github.io/maps"
 )
 
 type Incident struct {
@@ -23,14 +24,32 @@ type Incident struct {
 	UnitNumber string `json:"unit_number"`
 }
 
+type GeoCodingRequest struct {
+	address string
+	key     string
+}
+
 func getPoliceData(w http.ResponseWriter, r *http.Request){
+	apiKey := "AIzaSyDzfdrF3ekdtBR0CFTFvz2F1Qg7BimziTY"
 	ctx := appengine.NewContext(r)
 	client := urlfetch.Client(ctx)
+	c, err := maps.NewClient(maps.WithAPIKey(apiKey))
+
+
+	gc := maps.GeocodingRequest{
+		Address: "Main Street",
+	}
+
+	results,err := c.Geocode(ctx, &gc)
+
+	log.Print(results)
+
 	policeData, err := client.Get("http://www.dallasopendata.com/resource/are8-xahz.json")
 	if(err!=nil) {
 		log.Print(err.Error())
 	}
 	var pdata[] Incident
+
 	var bytes[] byte
 	bytes,err = ioutil.ReadAll(policeData.Body)
 
@@ -38,6 +57,7 @@ func getPoliceData(w http.ResponseWriter, r *http.Request){
 		log.Print(err.Error())
 	}
 	json.Unmarshal(bytes,&pdata)
+
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(bytes)
 }

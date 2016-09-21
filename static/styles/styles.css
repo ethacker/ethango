@@ -5,6 +5,18 @@ html,body{
     font-family: 'Lato', sans-serif;
     background-color: rgb(255, 254, 254);
 }
+.milk-production-img{
+    width:1%;
+    display:inline-block;
+}
+.milk-production-tag {
+    width:5%;
+    display:inline-block;
+}
+.milk-production-span{
+    text-align: center;
+}
+
 .main-content {
     padding: 1.5em 5em;
     text-align: center;

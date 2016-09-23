@@ -73,7 +73,6 @@ func exclusiveHandler(w http.ResponseWriter, r *http.Request) {
 			Date: time.Now(),
 		}
 		saveUser(w,r,usr)
-		getPoliceData(w,r)
 		tmplt["/exclusive"].ExecuteTemplate(w,"layout",nil)
 	}
 }

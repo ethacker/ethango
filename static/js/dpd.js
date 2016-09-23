@@ -47,15 +47,14 @@ Ethan.dpd = {
                 });
                 Ethan.dpd.loadMap();
                 $("#crimes-table").css("display","block");
-                Ethan.dpd.slowLoad(Ethan.dpd.locations);
             },
             error:function (errorCode) {
                 console.log(errorCode);
             }
         });
     },
-    geoCode: function(address){
-        Ethan.dpd.geocoder.geocode( { 'address': address}, function(results, status) {
+    geoCode: function(addresses){
+        Ethan.dpd.geocoder.geocode( { 'address': addresses[0]}, function(results, status) {
             if (status == 'OK') {
                 console.log(results);
                 var marker = new google.maps.Marker({
@@ -67,19 +66,6 @@ Ethan.dpd = {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
         });
-    },
-
-    slowLoad:function (addresses) {
-        for(i=0;i<addresses.length;i++) {
-            loadLocation(i);
-        }
-        function loadLocation(x){
-            setTimeout(function(){
-                console.log("geocoding " + addresses[x]);
-                Ethan.dpd.geoCode(addresses[x]);
-            },200);
-        }
-
     },
 
     loadMap: function(){

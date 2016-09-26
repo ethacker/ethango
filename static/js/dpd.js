@@ -5,6 +5,7 @@ Ethan.dpd = {
     geoCoder: variable,
     map: variable,
     locations:[],
+    index:variable = 0,
     latlongSW: variable,
     latlongNE: variable,
     initPage:function(){
@@ -53,19 +54,42 @@ Ethan.dpd = {
             }
         });
     },
-    geoCode: function(addresses){
-        Ethan.dpd.geocoder.geocode( { 'address': addresses[0]}, function(results, status) {
+    geoCode: function(address){
+        Ethan.dpd.geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == 'OK') {
-                console.log(results);
                 var marker = new google.maps.Marker({
                     map: Ethan.dpd.map,
                     position: results[0].geometry.location
                 });
                 console.log(marker);
+                if(Ethan.dpd.index<Ethan.dpd.locations.length){
+                    Ethan.dpd.delayedGeoCode(Ethan.dpd.locations[++Ethan.dpd.index])
+                }
             } else {
-                alert('Geocode was not successful for the following reason: ' + status);
+                console.log('Geocode was not successful for the following reason: ' + status);
+                if(Ethan.dpd.index<Ethan.dpd.locations.length){
+                    Ethan.dpd.delayedGeoCode(Ethan.dpd.locations[++Ethan.dpd.index])
+                }
             }
         });
+    },
+    activateGeoCoder:function(){
+        $(".geocode-button").hide();
+        Ethan.dpd.geoCode(Ethan.dpd.locations[Ethan.dpd.index])
+        $(".progress-meter").fadeIn();
+    },
+    delayedGeoCode: function(address){
+        setTimeout(function(){Ethan.dpd.geoCode(address)},750);
+        var progress = (Ethan.dpd.index/Ethan.dpd.locations.length)*100;
+        console.log(progress);
+        if(progress>6){
+            $(".progress-filler").width(progress+"%");
+        }
+        if(progress==100){
+            $(".progress-meter").css('background-color','rgb(255, 254, 254)');
+            $(".progress-filler").css('background-color','rgb(255, 254, 254)');
+            $(".progress-filler").text("GeoCoding Complete");
+        }
     },
 
     loadMap: function(){

@@ -31,9 +31,8 @@ func incidentKey(c context.Context) *datastore.Key {
 	return datastore.NewKey(c,"Incident","dpd_incidents",0,nil)
 }
 
-func saveIncident(w http.ResponseWriter, r *http.Request,i Incident) {
+func saveIncident(r *http.Request, i Incident) {
 	c := appengine.NewContext(r)
-
 	var incident []Incident
 
 	datastore.NewQuery("Incident").Filter("IncNumber =", i.IncNumber).Limit(1).GetAll(c,&incident)
@@ -43,11 +42,9 @@ func saveIncident(w http.ResponseWriter, r *http.Request,i Incident) {
 		_, err:= datastore.Put(c,key,&i)
 		if err !=nil {
 			log.Print(err.Error())
-			http.Error(w,err.Error(),http.StatusInternalServerError)
 			return
 		}
 	}
-
 }
 
 func getPoliceData(w http.ResponseWriter, r *http.Request){
@@ -66,10 +63,10 @@ func getPoliceData(w http.ResponseWriter, r *http.Request){
 	bytes,err = ioutil.ReadAll(policeData.Body)
 	json.Unmarshal(bytes,&incidents)
 
-	for _,v := range incidents {
-		saveIncident(w,r,v)
-	}
-
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(bytes)
+
+	for _,v := range incidents {
+		saveIncident(r,v)
+	}
 }

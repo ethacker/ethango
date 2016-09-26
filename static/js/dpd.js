@@ -9,9 +9,10 @@ Ethan.dpd = {
     latlongSW: variable,
     latlongNE: variable,
     initPage:function(){
-        $("#crimes-table").hide();
+        $(".dpd-info-container").hide();
+        $(".milk-production-span").hide();
         $.get({
-            url:"http://localhost:8080/dpdinfo/crimes",
+            url:"http://www.ethanthacker.com/dpdinfo/crimes",
             success:function (data) {
                 data.forEach(function(crime,index){
                     var table = document.getElementById("crimes-table-body");
@@ -46,8 +47,11 @@ Ethan.dpd = {
                     unitRow.setAttribute("class","unitRow crimes-table-cell");
                     unitRow.innerHTML = crime["unit_number"];
                 });
-                Ethan.dpd.loadMap();
+                $("#loading-spinner").hide();
+                $(".dpd-info-container").fadeIn();
                 $("#crimes-table").css("display","block");
+                $(".milk-production-span").show();
+                Ethan.dpd.loadMap();
             },
             error:function (errorCode) {
                 console.log(errorCode);

@@ -66,7 +66,5 @@ func getPoliceData(w http.ResponseWriter, r *http.Request){
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(bytes)
 
-	for _,v := range incidents {
-		saveIncident(r,v)
-	}
+	log.Print("after write")
 }

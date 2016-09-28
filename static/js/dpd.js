@@ -79,7 +79,7 @@ Ethan.dpd = {
     },
     activateGeoCoder:function(){
         $(".geocode-button").hide();
-        Ethan.dpd.geoCode(Ethan.dpd.locations[Ethan.dpd.index])
+        Ethan.dpd.geoCode(Ethan.dpd.locations[Ethan.dpd.index]);
         $(".progress-meter").fadeIn();
     },
     delayedGeoCode: function(address){

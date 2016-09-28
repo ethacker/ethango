@@ -47,6 +47,27 @@ func saveIncident(r *http.Request, i Incident) {
 	}
 }
 
+func saveCrimeData(w http.ResponseWriter,r *http.Request){
+	ctx := appengine.NewContext(r)
+	client := urlfetch.Client(ctx)
+
+
+	policeData, err := client.Get("http://www.dallasopendata.com/resource/are8-xahz.json")
+	if(err!=nil) {
+		log.Print(err.Error())
+	}
+
+	var bytes[] byte
+	var incidents[] Incident
+
+	bytes,err = ioutil.ReadAll(policeData.Body)
+	json.Unmarshal(bytes,&incidents)
+
+	for _,v := range incidents{
+		saveIncident(r,v)
+	}
+}
+
 func getPoliceData(w http.ResponseWriter, r *http.Request){
 	ctx := appengine.NewContext(r)
 	client := urlfetch.Client(ctx)

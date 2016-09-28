@@ -35,6 +35,7 @@ type Usr struct {
 type test struct {number int}
 
 func init() {
+	http.HandleFunc("/dpdinfo/cron/crimes",saveCrimeData)
 	http.HandleFunc("/dpdinfo/crimes",getPoliceData)
 	http.HandleFunc("/exclusive",exclusiveHandler)
 	http.HandleFunc("/contact",contactHandler)
@@ -127,7 +128,7 @@ func saveContact(w http.ResponseWriter, r *http.Request) {
 
 func templateHandler(w http.ResponseWriter, r *http.Request) {
 	log.Print(r.URL.Path)
-	w.Header().Add("Content-type","text/html")
+	w.Header().Set("Content-type","text/html")
 	user.LoginURL(appengine.NewContext(r),"/exclusive")
 	if r.URL.Path != "/"{
 		fp := path.Join("templates", r.URL.Path + ".html")

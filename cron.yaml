@@ -1,0 +1,4 @@
+cron:
+- description: hourly crime data store
+  url: /dpdinfo/cron/crimes
+  schedule: every 59 mins

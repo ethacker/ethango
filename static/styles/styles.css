@@ -157,7 +157,16 @@ html,body{
         height:inherit;
         float:left;
     }
-
+    #string-results-div{
+        display:inline-block;
+    }
+    #same-holder{
+        display:inline-block;
+        margin-right:2em;
+    }
+    #execution-time-holder{
+        display:inline-block;
+    }
     .navigation-list-item:hover,.navigation-list-item:focus,.navigation-list-item:active{
         background-color:steelblue;
     }

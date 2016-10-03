@@ -12,7 +12,7 @@ Ethan.dpd = {
         $(".dpd-info-container").hide();
         $(".milk-production-span").hide();
         $.get({
-            url:"http://localhost:8080/dpdinfo/crimes",
+            url:"http://www.ethanthacker.com/dpdinfo/crimes",
             success:function (data) {
                 data.forEach(function(crime,index){
                     var table = document.getElementById("crimes-table-body");

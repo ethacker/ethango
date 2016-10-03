@@ -1,0 +1,18 @@
+{{define "title"}}permutations{{end}}
+{{define "extra-head"}}
+<script type="application/javascript" src="">
+</script>
+{{end}}
+{{define "body"}}
+<div id="strings-input-container-div">
+    <label for="firstString">First String</label>
+    <input id="firstString" type="text"/>
+    <label for="secondString">Second String</label>
+    <input id="secondString" type="text"/>
+    <button onclick="Ethan.app.checkStrings()">Submit</button>
+</div>
+<div id="string-results-div">
+    <h2 id="same-holder"></h2>
+    <h2 id="execution-time-holder"></h2>
+</div>
+{{end}}

@@ -13,6 +13,8 @@ import (
 	"google.golang.org/appengine/user"
 	"fmt"
 	"golang.org/x/net/html"
+	"io"
+	"google.golang.org/appengine/urlfetch"
 )
 var tmplt = make(map[string]*template.Template)
 
@@ -35,6 +37,8 @@ type Usr struct {
 type test struct {number int}
 
 func init() {
+	http.HandleFunc("/api/strings",permutationHandler)
+	http.HandleFunc("/api/kibo",oracleDistro)
 	http.HandleFunc("/dpdinfo/cron/crimes",saveCrimeData)
 	http.HandleFunc("/dpdinfo/crimes",getPoliceData)
 	http.HandleFunc("/exclusive",exclusiveHandler)
@@ -49,6 +53,7 @@ func init() {
 	tmplt["/exclusive"] = template.Must(template.ParseFiles("templates/exclusive.html","templates/layout.html"))
 	tmplt["/login"] = template.Must(template.ParseFiles("templates/login.html","templates/layout.html"))
 	tmplt["/dpdinfo"] = template.Must(template.ParseFiles("templates/dpdinfo.html","templates/layout.html"))
+	tmplt["/strings"] = template.Must(template.ParseFiles("templates/strings.html","templates/layout.html"))
 }
 
 
@@ -163,5 +168,16 @@ func templateHandler(w http.ResponseWriter, r *http.Request) {
 
 		tmplt["index"].ExecuteTemplate(w,"layout", nil)
 	}
+}
 
+func oracleDistro(w http.ResponseWriter, r *http.Request) {
+	ctx :=appengine.NewContext(r)
+	client := urlfetch.Client(ctx)
+	resp,_ := client.Get("https://storage.googleapis.com/oracleimage/Oracle11gHeadless.ova.gz")
+	defer resp.Body.Close()
+
+
+	w.Header().Set("Content-Disposition", "attachment; filename=OracleHeadlessImage.ova.gz")
+	w.Header().Set("Content-Type", r.Header.Get("Content-Type"))
+	io.Copy(w,resp.Body)
 }

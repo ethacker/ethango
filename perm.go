@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
+	"strings"
 )
 
 type stringTest struct{
@@ -42,8 +43,8 @@ func permutationHandler(w http.ResponseWriter, r *http.Request){
 }
 
 func permCompare(first string, second string) bool{
-	firstMap := mapString(first)
-	secondMap := mapString(second)
+	firstMap := mapString(strings.ToLower(first))
+	secondMap := mapString(strings.ToLower(second))
 
 	return reflect.DeepEqual(firstMap,secondMap)
 }

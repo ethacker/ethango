@@ -1,0 +1,13 @@
+{{define "title"}}exclusive{{end}}
+{{define "extra-head"}}{{end}}
+{{define "body"}}
+<form class="pure-form pure-form-stacked blog-form" action="/exclusive/bloggingportal" title="contact" method="post">
+    <label class="blog-label" for="title">Title: </label>
+    <input required maxlength="144" class="blog-title" id="title" name="title" type="text">
+
+    <label class="blog-label" for="content">Content: </label>
+    <textarea class="blog-textarea" rows="20" id="content" name="content"></textarea>
+
+    <button class="pure-button blog-submit-button margin-top" type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i>Submit</button>
+</form>
+{{end}}

@@ -38,6 +38,13 @@ html,body{
     height:100%;
     list-style: none;
 }
+
+.margin-top {
+    margin-top:2em;
+}
+.fa {
+    margin-right:1em;
+}
 @media only screen and (max-width:516px) {
     .statusRow{
         display:none;
@@ -129,6 +136,11 @@ html,body{
     .contact-image {
         display: none;
     }
+
+    .projects-image{
+        width:80%;
+        margin-left:10%;
+    }
     .stack-list {
         text-align: center;
         margin-left: 0;
@@ -144,6 +156,19 @@ html,body{
         width:30%;
         margin-left:35%;
     }
+
+    .blog-form {
+        width:100%;
+    }
+    .blog-title {
+        width:100%;
+    }
+    .blog-textarea {
+        width:100%;
+    }
+    .blog-label {
+        text-align: center;
+    }
 }
 
 @media only screen and (min-width: 769px){
@@ -151,6 +176,7 @@ html,body{
         margin:0;
         width:100%;
     }
+
     .navigation-list-item {
         width:10%;
         text-align:center;
@@ -226,10 +252,6 @@ html,body{
     .contact-submit-button {
         margin-top: 1em;
     }
-
-    .fa {
-        margin-right:1em;
-    }
     .contact-page-content {
         display:inline-block;
         width: 90%;
@@ -241,6 +263,8 @@ html,body{
     }
 
     .projects-image {
+        width:40%;
+        margin-left:30%;
     }
 
     #welcome-back-banner {
@@ -302,5 +326,19 @@ html,body{
     .geocode-button {
         margin-top:2.5em;
         height:2.25em; !important;
+    }
+
+    .blog-form {
+        width:70%;
+        margin-left:15%;
+    }
+    .blog-title {
+        width:100%;
+    }
+    .blog-textarea {
+        width:100%;
+    }
+    .blog-label {
+        text-align: left;
     }
 }

@@ -1,27 +1,27 @@
 runtime: go
 api_version: go1
-default_expiration: "10m"
+default_expiration: "100d"
 
 handlers:
 - url: /favicon.ico
   static_files: favicon.ico
   upload: favicon.ico
-  expiration: "1m"
 
 - url: /static/styles/(.+\.css)
   static_files: static/styles/\1
   upload: /static/styles.+\.css
-  expiration: "1m"
 
 - url: /static/img/(.+\.png)
   static_files: static/img/\1
   upload: /static/img/.+\.png
-  expiration: "1m"
 
 - url: /static/js/(.+\.js)
   static_files: static/js/\1
   upload: /static/js/.+\.js
-  expiration: "1m"
+
+- url: /exclusive/.*
+  script: _go_app
+  login: admin
 
 - url: /.*
   script: _go_app

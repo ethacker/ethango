@@ -12,7 +12,7 @@ Ethan.dpd = {
         $(".dpd-info-container").hide();
         $(".milk-production-span").hide();
         $.get({
-            url:"http://www.ethanthacker.com/dpdinfo/crimes",
+            url:"http://localhost:8080/dpdinfo/crimes",
             success:function (data) {
                 data.forEach(function(crime,index){
                     var table = document.getElementById("crimes-table-body");
@@ -59,7 +59,7 @@ Ethan.dpd = {
         });
     },
     geoCode: function(address){
-        Ethan.dpd.geocoder.geocode( { 'address': address}, function(results, status) {
+        Ethan.dpd.geocoder.geocode( { 'address': address,'region':'ca'}, function(results, status) {
             if (status == 'OK') {
                 var marker = new google.maps.Marker({
                     map: Ethan.dpd.map,
@@ -102,9 +102,5 @@ Ethan.dpd = {
                 zoom: 10
             });
         Ethan.dpd.geocoder = new google.maps.Geocoder();
-
-        //TODO add in geocoding bounds
-        //Ethan.dpd.latlongSW = new google.maps.LatLng(32.584681, -97.005844);
-        //Ethan.dpd.latlongNE = new google.maps.LatLng(32.943825, -96.562271);
     }
 };

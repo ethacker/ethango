@@ -11,10 +11,7 @@ import (
 	"time"
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/user"
-	"fmt"
 	"golang.org/x/net/html"
-	"io"
-	"google.golang.org/appengine/urlfetch"
 )
 var tmplt = make(map[string]*template.Template)
 
@@ -34,14 +31,19 @@ type Usr struct {
 	Date 	   time.Time
 }
 
+type BlogPost struct {
+	Title string
+	Content string
+	Date time.Time
+}
+
 type test struct {number int}
 
 func init() {
 	http.HandleFunc("/api/strings",permutationHandler)
-	http.HandleFunc("/api/kibo",oracleDistro)
 	http.HandleFunc("/dpdinfo/cron/crimes",saveCrimeData)
 	http.HandleFunc("/dpdinfo/crimes",getPoliceData)
-	http.HandleFunc("/exclusive",exclusiveHandler)
+	http.HandleFunc("/exclusive/bloggingportal",bloggingHandler)
 	http.HandleFunc("/contact",contactHandler)
 	http.HandleFunc("/", templateHandler)
 	tmplt["index"] = template.Must(template.ParseFiles("templates/index.html","templates/layout.html"))
@@ -50,48 +52,38 @@ func init() {
 	tmplt["/contact"] = template.Must(template.ParseFiles("templates/contact.html","templates/layout.html"))
 	tmplt["/projects"] = template.Must(template.ParseFiles("templates/projects.html","templates/layout.html"))
 	tmplt["/otherstuff"] = template.Must(template.ParseFiles("templates/otherstuff.html","templates/layout.html"))
-	tmplt["/exclusive"] = template.Must(template.ParseFiles("templates/exclusive.html","templates/layout.html"))
+	tmplt["/exclusive/bloggingportal"] = template.Must(template.ParseFiles("templates/bloggingportal.html","templates/layout.html"))
 	tmplt["/login"] = template.Must(template.ParseFiles("templates/login.html","templates/layout.html"))
 	tmplt["/dpdinfo"] = template.Must(template.ParseFiles("templates/dpdinfo.html","templates/layout.html"))
 	tmplt["/strings"] = template.Must(template.ParseFiles("templates/strings.html","templates/layout.html"))
 }
 
-
-func userKey(c context.Context) *datastore.Key {
-	return datastore.NewKey(c,"User","registered_users",0,nil)
-}
-
-func exclusiveHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-type", "text/html; charset=utf-8")
-	ctx := appengine.NewContext(r)
-	u := user.Current(ctx)
-	if (u==nil) {
-		url,err :=user.LoginURL(ctx, "/exclusive")
-		if(err!=nil){
-			http.Error(w,err.Error(),http.StatusTeapot)
-		}
-		fmt.Fprintf(w, `<a href="%s">Sign in to access this Exclusive Itemz</a>`, url)
-	} else {
-		usr := Usr{
-			Email: u.Email,
-			AuthDomain: u.AuthDomain,
-			Admin: u.Admin,
-			Date: time.Now(),
-		}
-		saveUser(w,r,usr)
-		tmplt["/exclusive"].ExecuteTemplate(w,"layout",nil)
+func bloggingHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method=="GET" {
+		w.Header().Add("Content-type","text/html")
+		tmplt["/exclusive/bloggingportal"].ExecuteTemplate(w,"layout", nil)
+	}
+	if r.Method=="POST" {
+		r.ParseForm()
+		saveBlogPost(w,r)
+		http.Redirect(w, r, "/blog", http.StatusFound)
 	}
 }
 
-func saveUser(w http.ResponseWriter, r *http.Request,u Usr) {
+func saveBlogPost(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
-
-	key := datastore.NewIncompleteKey(c,"User",userKey(c))
-	_, err:= datastore.Put(c,key,&u)
+	bp := &BlogPost{
+		Title: html.EscapeString(r.FormValue("title")),
+		Content: html.EscapeString(r.FormValue("content")),
+		Date: time.Now(),
+	}
+	key := datastore.NewIncompleteKey(c,"BlogPost",blogPostKey(c))
+	_, err:= datastore.Put(c,key,bp)
 	if err !=nil {
 		http.Error(w,err.Error(),http.StatusInternalServerError)
 		return
 	}
+	http.Redirect(w, r, "/blog", http.StatusFound)
 }
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
@@ -106,6 +98,9 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func blogPostKey(c context.Context) *datastore.Key {
+	return datastore.NewKey(c,"BlogPost","default_blogposts",0,nil)
+}
 func contactKey(c context.Context) *datastore.Key {
 	return datastore.NewKey(c, "Contact", "default_contacts", 0, nil)
 }
@@ -168,16 +163,4 @@ func templateHandler(w http.ResponseWriter, r *http.Request) {
 
 		tmplt["index"].ExecuteTemplate(w,"layout", nil)
 	}
-}
-
-func oracleDistro(w http.ResponseWriter, r *http.Request) {
-	ctx :=appengine.NewContext(r)
-	client := urlfetch.Client(ctx)
-	resp,_ := client.Get("https://storage.googleapis.com/oracleimage/Oracle11gHeadless.ova.gz")
-	defer resp.Body.Close()
-
-
-	w.Header().Set("Content-Disposition", "attachment; filename=OracleHeadlessImage.ova.gz")
-	w.Header().Set("Content-Type", r.Header.Get("Content-Type"))
-	io.Copy(w,resp.Body)
 }

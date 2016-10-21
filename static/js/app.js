@@ -55,7 +55,7 @@ Ethan.app = {
         var strings = [$("#firstString").val(),$("#secondString").val()];
         console.log(strings);
         $.post({
-            url:"http://localhost:8080/api/strings",
+            url:"http://www.ethanthacker.com/api/strings",
             data: JSON.stringify(strings)
         }).done(function (data) {
             var results = JSON.parse(data);
